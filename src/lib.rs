@@ -42,6 +42,9 @@ pub fn get_default_favicon(base_url: &Url) -> Result<Favicon> {
     })
 }
 
+/// This will get all existing `<link rel='icon'>` that are declared in the page.
+/// Please note that this not uses the default [`reqwest::Client`].
+/// If you want to use the [`reqwest::blocking::Client`], please use the [`crate::get_blocking_favicons_from_url`] instead.
 pub async fn get_favicons_from_url(
     client: &reqwest::Client,
     base_url: &Url,
@@ -63,7 +66,9 @@ pub async fn get_favicons_from_url(
     }
 }
 
+/// Same as [`crate::get_favicons_from_url`] but it uses the [`reqwest::blocking::Client`]
 #[cfg(feature = "blocking")]
+#[cfg_attr(docsrs, doc(cfg("blocking")))]
 pub fn get_blocking_favicons_from_url(
     client: &reqwest::blocking::Client,
     base_url: &Url,

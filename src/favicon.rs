@@ -38,11 +38,15 @@ impl<'a> InnerFavicon<'a> {
     }
 }
 
+/// This is the instance of an website favicon 
 #[derive(Debug, Clone)]
 #[cfg_attr(feature = "serde", derive(serde:Serialize, serde::Deserialize))]
 pub struct Favicon {
+    /// the icon url
     pub href: Url,
+    /// the icon size
     pub size: Option<String>,
+    /// the icon type
     pub type_: Option<String>,
 }
 
@@ -70,10 +74,15 @@ impl TryFrom<(&Url, ElementRef<'_>)> for Favicon {
 }
 
 impl Favicon {
+    /// Return the favicon [`Bytes`]
+    /// This method uses the default [`reqwest::Client`]. 
+    /// If you want to use the [`reqwest::blocking::Client`], use the [`Favicon::get_blocking_images_bytes`] instead
     pub async fn get_image_bytes(&self, client: &Client) -> reqwest::Result<Bytes> {
         client.get(self.href.clone()).send().await?.bytes().await
     }
+    /// Same as [`Favicon::get_image_bytes`] but it uses the [`reqwest::blocking::Client`]
     #[cfg(feature = "blocking")]
+    #[cfg_attr(docsrs, doc(cfg("blocking")))]
     pub fn get_blocking_images_bytes(&self, client: &reqwest::blocking::Client) -> reqwest::Result<Bytes> {
         client.get(self.href.clone()).send()?.bytes()
     }
