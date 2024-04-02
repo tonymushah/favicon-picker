@@ -19,7 +19,7 @@ impl<'a> TryFrom<ElementRef<'a>> for InnerFavicon<'a> {
             .ok_or(crate::error::Error::HrefNotFound)?;
         Ok(Self {
             href,
-            size: value.attr("size"),
+            size: value.attr("size").or_else(|| value.attr("sizes")),
             type_: value.attr("type"),
         })
     }
@@ -35,6 +35,30 @@ impl<'a> InnerFavicon<'a> {
             .into_iter()
             .flat_map(<Self as TryFrom<ElementRef<'a>>>::try_from)
             .collect())
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use scraper::Html;
+
+    use super::InnerFavicon;
+
+    #[test]
+    fn inner_favicon() {
+        let fragmnents_raw = "
+            <link rel='icon' href='/favicons/favicon.ico'
+      sizes='any' /><link rel='icon' href='/favicons/icon.svg'
+      type='image/svg+xml' />
+        ";
+        let fragments = Html::parse_fragment(fragmnents_raw);
+        let inners = InnerFavicon::extract_favicons(&fragments).unwrap();
+        assert_eq!(inners.len(), 2);
+        assert_eq!(inners[0].href, "/favicons/favicon.ico");
+        assert_eq!(inners[0].size, Some("any"));
+
+        assert_eq!(inners[1].href, "/favicons/icon.svg");
+        assert_eq!(inners[1].type_, Some("image/svg+xml"))
     }
 }
 
@@ -58,7 +82,7 @@ impl TryFrom<(&Url, InnerFavicon<'_>)> for Favicon {
         Ok(Self {
             href: fav.get_href_url(base_url)?,
             size: fav.size.map(String::from),
-            type_: fav.size.map(String::from),
+            type_: fav.type_.map(String::from),
         })
     }
 }
