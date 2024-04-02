@@ -1,3 +1,4 @@
+use reqwest::StatusCode;
 use scraper::error;
 
 #[derive(Debug, thiserror::Error)]
@@ -11,5 +12,9 @@ pub enum Error {
     #[error(transparent)]
     Reqwest(#[from] reqwest::Error),
     #[error("No elements was been found with the selector `link[rel='icon']`")]
-    NoLinkIconElements
+    NoLinkIconElements,
+    #[error("We got a {code} while fetching for the icons bytes")]
+    ReqwestSend {
+        code: StatusCode
+    }
 }

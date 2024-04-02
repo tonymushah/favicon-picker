@@ -13,6 +13,7 @@ pub use favicon::Favicon;
 use scraper::Html;
 use url::Url;
 
+/// This function gives you the default favicon [`Url`] from a given url 
 pub fn get_default_favicon_url(base_url: &Url) -> std::result::Result<Url, url::ParseError> {
     base_url.join("/favicon.ico")
 }
@@ -21,7 +22,11 @@ pub async fn get_favicons_from_url(
     client: &reqwest::Client,
     base_url: &Url,
 ) -> Result<Vec<Favicon>> {
-    let html_raw = client.get(base_url.clone()).send().await?.text().await?;
+    let res = client.get(base_url.clone()).send().await?;
+    if !res.status().is_success() {
+        return Err(Error::ReqwestSend { code: res.status() });
+    }
+    let html_raw = res.text().await?;
     let html = Html::parse_document(&html_raw);
     let icons = InnerFavicon::extract_favicons(&html)?
         .into_iter()
@@ -39,7 +44,11 @@ pub fn get_blocking_favicons_from_url(
     client: &reqwest::blocking::Client,
     base_url: &Url,
 ) -> Result<Vec<Favicon>> {
-    let html_raw = client.get(base_url.clone()).send()?.text()?;
+    let res = client.get(base_url.clone()).send()?;
+    if !res.status().is_success() {
+        return Err(Error::ReqwestSend { code: res.status() });
+    }
+    let html_raw = res.text()?;
     let html = Html::parse_document(&html_raw);
     let icons = InnerFavicon::extract_favicons(&html)?
         .into_iter()
