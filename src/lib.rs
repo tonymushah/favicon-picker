@@ -33,6 +33,15 @@ pub fn get_default_favicon_url(base_url: &Url) -> std::result::Result<Url, url::
     base_url.join("/favicon.ico")
 }
 
+/// This function gives you the default favicon [`Favicon`] from a given url 
+pub fn get_default_favicon(base_url: &Url) -> Result<Favicon> {
+    Ok(Favicon {
+        href: get_default_favicon_url(base_url)?,
+        size: Default::default(),
+        type_: Default::default()
+    })
+}
+
 pub async fn get_favicons_from_url(
     client: &reqwest::Client,
     base_url: &Url,
