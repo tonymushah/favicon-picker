@@ -14,6 +14,21 @@ use scraper::Html;
 use url::Url;
 
 /// This function gives you the default favicon [`Url`] from a given url 
+/// 
+/// Example:
+/// 
+/// ```
+/// 
+/// use favicon_picker::get_default_favicon_url;
+/// 
+/// use url::Url;
+/// 
+/// let base_url = Url::parse("https://crates.io").unwrap();
+/// 
+/// assert_eq!(Url::parse("https://crates.io/favicon.ico").unwrap(), get_default_favicon_url(&base_url).unwrap())
+/// 
+/// ```
+/// 
 pub fn get_default_favicon_url(base_url: &Url) -> std::result::Result<Url, url::ParseError> {
     base_url.join("/favicon.ico")
 }
