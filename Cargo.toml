@@ -10,6 +10,7 @@ bytes = "1"
 reqwest = "0"
 scraper = "0"
 thiserror = "1"
+url = "2"
 
 [dev-dependencies]
 anyhow = "1"
