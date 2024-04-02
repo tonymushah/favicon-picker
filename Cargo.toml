@@ -6,6 +6,7 @@ authors = ["tonymushah tonymushahdev06@yahoo.com"]
 description = "A library for getting favicon from websites"
 repository = "https://github.com/tonymushah/favicon-picker"
 categories = ["favicon"]
+license-file = "LICENSE"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
