@@ -1,8 +1,19 @@
 # favicon-picker
 
+[![Crates.io][crates-badge]][crates-url]
+[![Documentation][docs-badge]][docs-url]
+[![Crates.io (recent)](https://img.shields.io/crates/dr/favicon-picker)][crates-url]
+
+[crates-badge]: https://img.shields.io/crates/v/favicon-picker.svg
+[crates-url]: https://crates.io/crates/favicon-picker
+[docs-badge]: https://img.shields.io/docsrs/favicon-picker.svg
+[docs-url]: https://docs.rs/favicon-picker
+
 This is just a small library that allows you to get websites [favicons](https://en.wikipedia.org/wiki/Favicon).
 
 This library is similar to [`site_icons`](https://github.com/samdenty/site_icons) but i just wanted something simple and flexible to use for various side-project.
+
+## Usage
 
 ## Example
 
