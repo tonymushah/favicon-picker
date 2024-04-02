@@ -23,6 +23,7 @@ anyhow = "1"
 tokio = { version = "1.37.0", features = ["rt", "macros"] }
 
 [features]
-default = []
+default = ["non_exhaustive"]
+non_exhaustive = []
 blocking = ["reqwest/blocking"]
 serde = ["dep:serde"]

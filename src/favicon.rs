@@ -65,6 +65,7 @@ mod tests {
 /// This is the instance of an website favicon 
 #[derive(Debug, Clone)]
 #[cfg_attr(feature = "serde", derive(serde:Serialize, serde::Deserialize))]
+#[cfg_attr(feature = "non_exhaustive", non_exhaustive)]
 pub struct Favicon {
     /// the icon url
     pub href: Url,
