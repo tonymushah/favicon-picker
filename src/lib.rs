@@ -57,7 +57,7 @@ pub async fn get_favicons_from_url(
         .flat_map(|e| <Favicon as TryFrom<(&Url, InnerFavicon<'_>)>>::try_from((base_url, e)))
         .collect::<Vec<Favicon>>();
     if icons.is_empty() {
-        Err(Error::NoLinkIconElements)
+        get_default_favicon(base_url).map(|r| vec![r])
     } else {
         Ok(icons)
     }
@@ -79,7 +79,7 @@ pub fn get_blocking_favicons_from_url(
         .flat_map(|e| <Favicon as TryFrom<(&Url, InnerFavicon<'_>)>>::try_from((base_url, e)))
         .collect::<Vec<Favicon>>();
     if icons.is_empty() {
-        Err(Error::NoLinkIconElements)
+        get_default_favicon(base_url).map(|r| vec![r])
     } else {
         Ok(icons)
     }
