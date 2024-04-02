@@ -9,5 +9,7 @@ pub enum Error {
     #[error("the `href` attribute is not found in element_ref")]
     HrefNotFound,
     #[error(transparent)]
-    Reqwest(#[from] reqwest::Error)
+    Reqwest(#[from] reqwest::Error),
+    #[error("No elements was been found with the selector `link[rel='icon']`")]
+    NoLinkIconElements
 }
