@@ -9,8 +9,14 @@ edition = "2021"
 bytes = "1"
 reqwest = "0"
 scraper = "0"
+serde = { version = "1.0.197", optional = true, features = ["derive"] }
 thiserror = "1"
 url = "2"
 
 [dev-dependencies]
 anyhow = "1"
+
+[features]
+default = ["blocking"]
+blocking = ["reqwest/blocking"]
+serde = ["dep:serde"]
