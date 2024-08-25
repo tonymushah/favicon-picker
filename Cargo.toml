@@ -1,6 +1,6 @@
 [package]
 name = "favicon-picker"
-version = "1.0.0"
+version = "1.1.0"
 edition = "2021"
 authors = ["tonymushah tonymushahdev06@yahoo.com"]
 description = "A library for getting favicon from websites"
