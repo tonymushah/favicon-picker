@@ -5,7 +5,7 @@ edition = "2021"
 authors = ["tonymushah tonymushahdev06@yahoo.com"]
 description = "A library for getting favicon from websites"
 repository = "https://github.com/tonymushah/favicon-picker"
-categories = ["favicon"]
+keywords = ["favicon"]
 readme = "README.md"
 license-file = "LICENSE"
 
